@@ -1,5 +1,6 @@
 from manim import *
 import numpy as np
+from abc import abstractmethod
 """
 将两个mobject合并为VGroup
 一个作为主mob，一个作为副mob
@@ -52,7 +53,7 @@ class MShape(VGroup):
     return self.accomp.animate(run_time=time).set_color(color)
   
   def merge_color(self):
-    self.set_accomp_color(self.shape.color)
+    self.match_color(self.shape.color)
   def merge_change_color(self, time=DEFAULT_TIME):
     return self.change_accomp_color(self.shape.color, time)
   
@@ -66,6 +67,17 @@ class MShape(VGroup):
   def change_accomp_height(self,height):
     return self.accomp.animate.stretch(height/self.accomp.height,1)
   
+  def merge_width(self, number=1):
+    self.accomp.match_width(self.shape).scale(number)
+  def merge_change_width(self, number=1, time=DEFAULT_TIME):
+    return self.accomp.animate(run_time=time).match_width(self.shape).scale(number)
+  
+  def merge_height(self, number=1):
+    self.accomp.match_height(self.shape).scale(number)
+  def merge_change_height(self, number=1, time=DEFAULT_TIME):
+    return self.accomp.animate(run_time=time).match_height(self.shape).scale(number)
+  
+  # 指示
   def wave_change_shape(self, time: float = DEFAULT_TIME, direction: np.ndarray = UP,
                          ripples: int = 1, time_width: float = 1):
     # 运行时间 波动方向 波数 波长相对于mob宽度的长度
@@ -85,18 +97,22 @@ class MShape(VGroup):
   
   def circom_change_shape(self, time: float = DEFAULT_TIME, circom_type: type = Rectangle):
     # 运行时间 形状（Rectangle or Circle） 
-    return Circumscribe(self.shape, run_time=time, shape = circom_type)
+    return Circumscribe(self.shape, run_time=time, shape=circom_type)
   def circom_change_accomp(self, time: float = DEFAULT_TIME, circom_type: type = Rectangle): 
-    return Circumscribe(self.accomp, run_time=time, shape = circom_type)
+    return Circumscribe(self.accomp, run_time=time, shape=circom_type)
   def circom_change(self, time: float = DEFAULT_TIME, circom_type: type = Rectangle): 
-    return Circumscribe(self, run_time=time, shape = circom_type)
-  
+    return Circumscribe(self, run_time=time, shape=circom_type)
+
+class TShape:
+  @abstractmethod
+  def value(self):
+    pass
 """
 携带普通文本的图形
 """ 
-class TextShape(MShape):
+class TextShape(MShape,TShape):
   DEFAULT_TIME = MShape.DEFAULT_TIME
-  DEFAULT_TEXT = Text("测试", opacity=0.5).scale(0.5)
+  DEFAULT_TEXT = Text("测试").scale(0.5)
 
   def __init__(self,shape: Mobject, text: Text=DEFAULT_TEXT):
     super().__init__(shape=shape, accomp=text)
@@ -105,10 +121,35 @@ class TextShape(MShape):
   def init(cls, shape: Mobject,data="测试", font_size=48, font_color=BLUE, font_style="Consolas", font_opacity=1):
     text = Text(text=data, font=font_style, font_size=font_size, color=font_color, fill_opacity=font_opacity)
     return cls(shape=shape, text=text)
-  def show(self,time=DEFAULT_TIME):
+  
+  def show(self,time=DEFAULT_TIME): 
     return AnimationGroup(Write(self.accomp),Create(self.shape),run_time=time)
+  
+  @property
+  def value(self):
+    return self.accomp.text
 """
 携带整数的图形
 """
-class Rectangle(MShape):
-  pass
+class IntShape(MShape):
+  DEFAULT_TIME = MShape.DEFAULT_TIME
+  DEFAULT_INTEGER = Integer(number=0, font_size=48)
+  def __init__(self,shape: Mobject, integer: Integer=DEFAULT_INTEGER):
+    super().__init__(shape=shape, accomp=integer)
+
+  @classmethod
+  def init(cls, shape: Mobject,number=0, font_size=48, font_color=BLUE, font_opacity=1):
+    integer = Integer(number=number, font_size=font_size, color=font_color, fill_opacity=font_opacity)
+    return cls(shape=shape, integer=integer)
+  
+  def show(self,time=DEFAULT_TIME): 
+    return AnimationGroup(Write(self.accomp), Create(self.shape), run_time=time)
+  
+  @property
+  def value(self):
+    return self.accomp.get_value()
+  
+class MShapeModel():
+  @staticmethod
+  def int_rectangle(number = 0):
+    return IntShape.init(shape=Rectangle(), number=number)

@@ -1,18 +1,15 @@
 from manim import *
 from Mobject.MShape import *
+from Mobject.MStructure import *
 class main(Scene):
   def construct(self):
-    text = Text(text='asddasd',color=WHITE)
-    print(text.font_size)
-    rec = Rectangle(color=RED)
-    ashape = TextShape.init(shape=rec,data="wpde")
-    self.play(ashape.show())
-    self.play(ashape.merge_change_color())
-    self.play(ashape.circom_change())
-    self.wait()
-    self.play(ashape.top_change())
-    print(ashape.width,ashape.height)
-    self.wait()
-    self.play(ashape.circom_change())
+    shape1 = MShapeModel.int_rectangle(1).to_edge(UP)
+    shape2 = MShapeModel.int_rectangle(2)
+    shape3 = MShapeModel.int_rectangle(3)
+    tree = MTree()
+    tree.add_node(node=shape1)
+    tree.add_node(node=shape2,parent=shape1,direction=DL + DOWN*2)
+    tree.add_node(node=shape3,parent=shape1,direction=DR + DOWN*2)
+    self.add(tree)
     self.wait()
 
