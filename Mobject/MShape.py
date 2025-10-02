@@ -1,5 +1,5 @@
-from manim import *
 import numpy as np
+from manim import *
 from abc import abstractmethod
 """
 将两个mobject合并为VGroup
@@ -18,62 +18,74 @@ class MShape(VGroup):
   # 位置操作
   def merge(self):
     self.accomp.move_to(self.shape.get_center())
+    return self
   def merge_change(self, time=DEFAULT_TIME):
     return self.accomp.animate(runtime=time).move_to(self.shape.get_center())
   
   def top(self, buff=0.2):
     self.accomp.next_to(self.shape, UP, buff=buff)
+    return self
   def top_change(self, buff=0.2, time=DEFAULT_TIME):
     return self.accomp.animate(runtime=time).next_to(self.shape, UP, buff=buff)
   
   def bottom(self, buff=0.2):
     self.accomp.next_to(self.shape, DOWN, buff=buff)
+    return self
   def bottom_change(self, buff=0.2, time=DEFAULT_TIME):
     return self.accomp.animate(run_time=time).next_to(self.shape, DOWN, buff=buff)
   
   def left(self, buff=0.2):
     self.accomp.next_to(self.shape, LEFT, buff=buff)
+    return self
   def left_change(self, buff=0.2, time=DEFAULT_TIME):
     return self.accomp.animate(run_time=time).next_to(self.shape, LEFT, buff=buff) 
   
   def right(self, buff=0.2):
     self.accomp.next_to(self.shape, RIGHT, buff=buff)
+    return self
   def right_change(self, buff=0.2, time=DEFAULT_TIME):
     return self.accomp.animate(run_time=time).next_to(self.shape, RIGHT, buff=buff) 
   
   # 个体变化
   def set_shape_color(self, color):
     self.shape.set_color(color)
+    return self
   def change_shape_color(self, color, time=DEFAULT_TIME):
     return self.shape.animate(run_time=time).set_color(color)
   
   def set_accomp_color(self, color):
     self.accomp.set_color(color)
+    return self
   def change_accomp_color(self, color, time=DEFAULT_TIME):
     return self.accomp.animate(run_time=time).set_color(color)
   
   def merge_color(self):
     self.match_color(self.shape.color)
+    return self
   def merge_change_color(self, time=DEFAULT_TIME):
     return self.change_accomp_color(self.shape.color, time)
   
   def set_shape_width(self,width):
     self.shape.stretch(width/self.shape.width,0)
+    return self
   def change_shape_width(self,width):
     return self.shape.animate.stretch(width/self.shape.width,0)
 
   def set_accomp_height(self,height):
     self.accomp.stretch(height/self.accomp.height,1)
+    return self
   def change_accomp_height(self,height):
     return self.accomp.animate.stretch(height/self.accomp.height,1)
   
   def merge_width(self, number=1):
     self.accomp.match_width(self.shape).scale(number)
+    return self
   def merge_change_width(self, number=1, time=DEFAULT_TIME):
     return self.accomp.animate(run_time=time).match_width(self.shape).scale(number)
   
   def merge_height(self, number=1):
     self.accomp.match_height(self.shape).scale(number)
+    return self
   def merge_change_height(self, number=1, time=DEFAULT_TIME):
     return self.accomp.animate(run_time=time).match_height(self.shape).scale(number)
   
@@ -153,3 +165,6 @@ class MShapeModel():
   @staticmethod
   def int_rectangle(number = 0):
     return IntShape.init(shape=Rectangle(), number=number)
+  @staticmethod
+  def int_circle(number = 0):
+    return IntShape.init(shape=Circle(),number=number)

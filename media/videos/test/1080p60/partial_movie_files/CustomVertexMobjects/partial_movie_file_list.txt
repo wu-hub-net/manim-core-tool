@@ -1,3 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/CustomVertexMobjects/3977891868_2139513692_223132457.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/CustomVertexMobjects/2852726489_2872842549_2128958821.mp4'

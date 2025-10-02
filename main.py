@@ -1,15 +1,15 @@
+import numpy as np
 from manim import *
 from Mobject.MShape import *
 from Mobject.MStructure import *
-class main(Scene):
+from Mobject.Msort import *
+class main(MovingCameraScene):
   def construct(self):
-    shape1 = MShapeModel.int_rectangle(1).to_edge(UP)
-    shape2 = MShapeModel.int_rectangle(2)
-    shape3 = MShapeModel.int_rectangle(3)
+    list = Maxis(height=0.3, width=0.7,
+                 array=[5, 2, 8, 3, 1, 6, 4, 7, 9, 8])
+    l1,l2 = list.split()
     tree = MTree()
-    tree.add_node(node=shape1)
-    tree.add_node(node=shape2,parent=shape1,direction=DL + DOWN*2)
-    tree.add_node(node=shape3,parent=shape1,direction=DR + DOWN*2)
+    tree.add_node(node=list,direction=)
     self.add(tree)
-    self.wait()
-
+    self.play(self.camera.frame.animate.scale(2))
+    

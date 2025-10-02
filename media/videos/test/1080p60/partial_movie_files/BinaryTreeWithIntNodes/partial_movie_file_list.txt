@@ -1,7 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/BinaryTreeWithIntNodes/3977891868_4139296751_223132457.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/BinaryTreeWithIntNodes/2852726489_4079250704_312029864.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/BinaryTreeWithIntNodes/2852726489_3688647850_38709280.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/BinaryTreeWithIntNodes/2852726489_4079250704_3825760585.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/BinaryTreeWithIntNodes/2852726489_42083675_130658305.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/BinaryTreeWithIntNodes/2852726489_2872842549_991233090.mp4'

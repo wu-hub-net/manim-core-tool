@@ -1,5 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/IncrementalTree/3977891868_3981818713_223132457.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/IncrementalTree/2852726489_2688965532_2523412187.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/IncrementalTree/2852726489_4222773723_3324783610.mp4'
-file 'file:D:/mylife/manim/manim-core-tool/media/videos/test/1080p60/partial_movie_files/IncrementalTree/2852726489_2688965532_3109179368.mp4'

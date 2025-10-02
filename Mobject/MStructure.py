@@ -77,8 +77,11 @@ class MTree(VGroup):
       self.relations = []
       self.childs = []
       self.parent = []
+      self.line_color = WHITE
     # 添加节点及连线
-    def add_node(self, node: Mobject, parent: Mobject=None, direction=DOWN, config:type = Rectangle):
+    def add_node(self, node: Mobject, parent: Mobject=None,
+                  direction=DOWN,aligned=UP, config: type=Rectangle,
+                  move_config: str='next'):
       if(config not in [Rectangle,Circle]):
          return
       # 添加结点
@@ -94,8 +97,8 @@ class MTree(VGroup):
       self.childs[parent_idx].append(child_idx)
       self.parent.append(parent_idx)
       # 移动结点
-      node.next_to(parent, direction)
-      # 连线
+      self.move_node(node,parent,move_config,direction,aligned)
+      # 连下
       if(config == Rectangle):
         start = parent.get_bottom()
         end = node.get_top()
@@ -106,7 +109,8 @@ class MTree(VGroup):
         node_radius = node.shape.radius
         start = parent.get_center() + direction * parent_radius
         end = node.get_center() - direction * node_radius
-      edge = Line(start, end)
+
+      edge = Line(start, end, color=self.line_color)
       self.add(edge)
       self.edges.append(edge)
       edge_idx = len(self.edges) - 1
@@ -115,3 +119,12 @@ class MTree(VGroup):
         "child_idx": child_idx,
         "edge_idx": edge_idx
       })
+
+    def move_node(self,node: Mobject,parent: Mobject,config:str = 'next',direction = DOWN,aligned=UP):
+      if(config == 'next'):
+        node.next_to(parent, direction)
+      elif(config == 'move'):
+        node.move_to(parent.get_center() + direction,aligned_edge=aligned)
+      elif(config == 'realative'):
+        node.move_to(parent.get_center() + direction)
+      return node,parent
